@@ -25,7 +25,7 @@ def initialize_database():
         print('People table already exists')
     else:
         Person.__table__.create(engine, checkfirst=True)
-        print('Sucessfully created people table')
+        print('Successfully created people table')
 
 
 if __name__ == '__main__':

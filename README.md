@@ -31,26 +31,30 @@ If there is already a tuple with the same email in the database then it will rai
    
 
 ## Usage and deployment
-The solution comes ready for separate deployment on different machines. You should only change the ```BROKER_CONN``` on the producer to point your consumer's IP address on the network 
+The solution comes ready for separate deployment on different machines. You should only change the ```BROKER_CONN``` on the consumer docker-compose.yml to point your consumer's IP address on the network 
 (may be the local network if you are deploying both on the same machine). 
 ### Consumer
-1. First initialize the Database:
+1. First initialize the Database, in the consumer directory:
 
     ```docker-compose run worker python /database/initialization.py```
 
-This will create the database and the People table to hold fullnames and emails.
+    This will create the 'peopledb' database and the 'people' table to hold fullnames and emails.
 
-2. Then build and run the containers:
+2. Then run the containers:
     
     ```docker-compose up```
 
 
 ### Producer
 
-1. First build and run the containers:
+1. First build and run the containers, in the producer directory:
+    
     ```docker-compose up```
 
-2. Get into the producer container and inside it run:
+2. Get into the bash of the producer container:
+
+    ```docker exec -it <name_of_producer_container> /bin/bash```  
+3. Within the producer's bash run the following to process the 100-contacts.csv file (for example):
 
     ```python producer.py -p 'example_csvs/100-contacts.csv'```
     
@@ -61,6 +65,7 @@ This will create the database and the People table to hold fullnames and emails.
 ## TODO
 * Check before reading the first line (for dialect detection) that the line is not too big to avoid memory issues.
 * Easier way to add CSV files (instead of rebuilding the image each time and reading them from file). Perhaps adding an endpoint for CSV uploading.
+* Frontend to visualize contacts data
 * Add more complex criteria to match the fullname entity (e.g. when name and surname come in separate fields)
 * Add Redis as the result backend
 * Enable SSL on RabbitMQ
