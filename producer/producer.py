@@ -5,6 +5,7 @@ import logging
 import logging.config
 import os
 import re
+from typing import Generator, Tuple
 
 import chardet
 from tasks import insert_person_db
@@ -38,7 +39,7 @@ class Producer(object):
     def __init__(self):
         self.logger = logging.getLogger('producer')
 
-    def __get_csv_fullnames_emails(self, filepath: str) -> tuple:
+    def __get_csv_fullnames_emails(self, filepath: str) -> Generator[Tuple[str, str], None, None]:
         """
         Generator function that reads a CSV file and returns fullname and email if found.
 

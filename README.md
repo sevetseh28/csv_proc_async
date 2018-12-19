@@ -57,8 +57,6 @@ This will create the database and the People table to hold fullnames and emails.
     If you wish to test your own CSV file then you must include it in the example_csvs directory and rebuild the images or use
     a bind mount to share the directory with the host (not desired for portability reasons).
 
-### Logs
-Logs are included in the 
 
 ## TODO
 * Check before reading the first line (for dialect detection) that the line is not too big to avoid memory issues.
