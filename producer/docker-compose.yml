@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  broker:
+    image: rabbitmq:3
+    ports:
+      - 5673:5672
+
+  producer:
+    build: .
+    command: tail -f /dev/null # to keep the container running
+    environment:
+      - BROKER_CONN=amqp://broker:5672
+    depends_on:
+      - broker

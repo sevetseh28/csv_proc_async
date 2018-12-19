@@ -1,0 +1,20 @@
+version: '3.7'
+
+services:
+  db:
+    image: postgres:10.1-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+  worker:
+    build: .
+    command: celery -l info -A tasks worker
+    depends_on:
+      - db
+    environment:
+      - DB_CONN_STRING=postgresql://postgres:postgres@db/peopledb
+      - BROKER_CONN=amqp://192.168.1.184:5673
+
+
+volumes:
+  postgres_data:
