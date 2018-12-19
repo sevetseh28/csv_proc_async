@@ -8,5 +8,5 @@ class Person(Base):
     __tablename__ = 'people'
 
     id = Column(Integer, primary_key=True)
-    fullname = Column(String, max)
+    fullname = Column(String)
     email = Column(String, unique=True)
